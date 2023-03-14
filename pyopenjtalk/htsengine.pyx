@@ -16,7 +16,9 @@ from htsengine cimport (
     HTS_Engine_get_sampling_frequency, HTS_Engine_get_fperiod,
     HTS_Engine_set_speed, HTS_Engine_add_half_tone,
     HTS_Engine_synthesize_from_strings,
-    HTS_Engine_get_generated_speech, HTS_Engine_get_nsamples
+    HTS_Engine_get_generated_speech, HTS_Engine_get_nsamples,
+    HTS_Engine_set_gv_weight, HTS_Engine_get_state_duration,
+    HTS_Engine_get_nstate
 )
 
 cdef class HTSEngine(object):
@@ -26,6 +28,7 @@ cdef class HTSEngine(object):
         voice (bytes): File path of htsvoice.
     """
     cdef HTS_Engine* engine
+    cdef size_t label_len
 
     def __cinit__(self, bytes voice=b"htsvoice/mei_normal.htsvoice"):
         self.engine = new HTS_Engine()
@@ -66,6 +69,24 @@ cdef class HTSEngine(object):
             half_tone (float): additional half tone
         """
         HTS_Engine_add_half_tone(self.engine, half_tone)
+    
+    def set_gv_weight_log_f0(self, float f):
+        HTS_Engine_set_gv_weight(self.engine, 1, f)
+
+    def get_phoneme_length(self):
+        cdef size_t label_len = self.label_len
+        cdef size_t fperiod = HTS_Engine_get_fperiod(self.engine)
+        cdef size_t nstate = HTS_Engine_get_nstate(self.engine)
+        cdef size_t state = 0
+        cdef size_t duration
+        cdef np.ndarray frame = np.zeros([label_len], dtype=np.uint64)
+        for i in range(label_len):
+            duration = 0
+            for j in range(nstate):
+                duration += HTS_Engine_get_state_duration(self.engine, state)
+                state += 1
+            frame[i] = duration * fperiod
+        return frame
 
     def synthesize(self, list labels):
         """Synthesize waveform from list of full-context labels
@@ -84,6 +105,7 @@ cdef class HTSEngine(object):
     def synthesize_from_strings(self, list labels):
         """Synthesize from strings"""
         cdef size_t num_lines = len(labels)
+        self.label_len = num_lines
         cdef char **lines = <char**> malloc((num_lines + 1) * sizeof(char*))
         for n in range(len(labels)):
             lines[n] = <char*>labels[n]
@@ -107,9 +129,11 @@ cdef class HTSEngine(object):
         return (<bytes>HTS_Engine_get_fullcontext_label_format(self.engine)).decode("utf-8")
 
     def refresh(self):
+        self.label_len = 0
         HTS_Engine_refresh(self.engine)
 
     def clear(self):
+        self.label_len = 0
         HTS_Engine_clear(self.engine)
 
     def __dealloc__(self):

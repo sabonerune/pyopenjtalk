@@ -1,4 +1,3 @@
-import ctypes
 from typing import List
 
 import numpy
@@ -9,8 +8,9 @@ class HTSEngine:
         Args:
             voice (bytes): File path of htsvoice.
         """
-        raise RuntimeError("Failed to initalize HTS_Engine")
-    def load(self, voice: bytes) -> bytes: ...
+        pass
+    def load(self, voice: bytes) -> bytes:
+        pass
     def get_sampling_frequency(self) -> int:
         """Get sampling frequency"""
         pass
@@ -29,6 +29,10 @@ class HTSEngine:
             half_tone (float): additional half tone
         """
         pass
+    def set_gv_weight_log_f0(self, f: float) -> None:
+        pass
+    def get_phoneme_length(self) -> numpy.ndarray:
+        pass
     def synthesize(self, labels: List[str]) -> numpy.ndarray:
         """Synthesize waveform from list of full-context labels
         Args:
@@ -39,13 +43,16 @@ class HTSEngine:
         pass
     def synthesize_from_strings(self, labels: List[str]) -> None:
         """Synthesize from strings"""
-        raise RuntimeError("Failed to run synthesize_from_strings")
+        pass
     def get_generated_speech(self) -> numpy.ndarray:
         """Get generated speech"""
         pass
     def get_fullcontext_label_format(self) -> str:
         """Get full-context label format"""
         pass
-    def refresh(self) -> None: ...
-    def clear(self) -> None: ...
-    def __dealloc__(self) -> None: ...
+    def refresh(self) -> None:
+        pass
+    def clear(self) -> None:
+        pass
+    def __dealloc__(self) -> None:
+        pass

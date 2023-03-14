@@ -12,8 +12,10 @@ class OpenJTalk:
                 Default is empty.
         """
         raise RuntimeError("Failed to initalize Mecab")
-    def _clear(self) -> None: ...
-    def _load(self, dn_mecab: bytes, user_mecab: bytes) -> int: ...
+    def _clear(self) -> None:
+        pass
+    def _load(self, dn_mecab: bytes, user_mecab: bytes) -> int:
+        pass
     def run_frontend(self, text: str) -> List[dict]:
         """Run OpenJTalk's text processing frontend"""
         pass
@@ -25,6 +27,8 @@ class OpenJTalk:
     ) -> Union[List[str], str]:
         """Grapheme-to-phoeneme (G2P) conversion"""
         pass
-    def __dealloc__(self) -> None: ...
+    def __dealloc__(self) -> None:
+        pass
 
-def CreateUserDict(dn_mecab: bytes, path: bytes, out_path: bytes) -> None: ...
+def CreateUserDict(dn_mecab: bytes, path: bytes, out_path: bytes) -> None:
+    pass

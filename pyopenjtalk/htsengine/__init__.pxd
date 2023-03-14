@@ -20,3 +20,6 @@ cdef extern from "HTS_engine.h":
 
     void HTS_Engine_set_speed(HTS_Engine * engine, double f)
     void HTS_Engine_add_half_tone(HTS_Engine * engine, double f)
+    void HTS_Engine_set_gv_weight(HTS_Engine * engine, size_t stream_index, double f)
+    size_t HTS_Engine_get_state_duration(HTS_Engine * engine, size_t state_index)
+    size_t HTS_Engine_get_nstate(HTS_Engine * engine)
