@@ -117,6 +117,8 @@ for s in [
     all_src += glob(join(src_top, s, "*.cpp"))
     include_dirs.append(join(os.getcwd(), src_top, s))
 
+DEFINE_NPY_NO_DEPRECATED_API = ("NPY_NO_DEPRECATED_API", "NPY_1_7_API_VERSION")
+
 # Extension for OpenJTalk frontend
 ext_modules = [
     Extension(
@@ -127,6 +129,7 @@ ext_modules = [
         extra_link_args=[],
         language="c++",
         define_macros=[
+            DEFINE_NPY_NO_DEPRECATED_API,
             ("HAVE_CONFIG_H", None),
             ("DIC_VERSION", "102"),
             ("MECAB_DEFAULT_RC", '"dummy"'),
@@ -150,6 +153,7 @@ ext_modules += [
         libraries=["winmm"] if platform_is_windows else [],
         language="c++",
         define_macros=[
+            DEFINE_NPY_NO_DEPRECATED_API,
             ("AUDIO_PLAY_NONE", None),
         ],
     )
