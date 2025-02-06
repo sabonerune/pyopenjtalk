@@ -277,11 +277,7 @@ def update_global_jtalk_with_user_dict(path):
         path (str): path to user dictionary
     """
     global _global_jtalk
-    with _global_jtalk():
+    with _global_jtalk() as jtalk:
         if not exists(path):
             raise FileNotFoundError("no such file or directory: %s" % path)
-        _global_jtalk = _global_instance_manager(
-            instance=OpenJTalk(
-                dn_mecab=OPEN_JTALK_DICT_DIR, userdic=path.encode("utf-8")
-            )
-        )
+        jtalk.update_dict(OPEN_JTALK_DICT_DIR, path.encode("utf-8"))

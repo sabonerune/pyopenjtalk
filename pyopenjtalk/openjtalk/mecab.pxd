@@ -27,4 +27,5 @@ cdef extern from "mecab.h" namespace "MeCab":
     cdef cppclass Model:
         Tagger *createTagger() nogil
         Lattice *createLattice() nogil
+        bint swap(Model *model) nogil
     cdef Model *createModel(int argc, char **argv) nogil

@@ -277,6 +277,19 @@ cdef class OpenJTalk:
             prons = "".join(prons)
         return prons
 
+    @_lock_manager()
+    def update_dict(self, bytes dn_mecab=b"/usr/local/dic", bytes userdic=b""):
+        cdef Model* model = <Model*>self.mecab.model
+        cdef (char*)[5] argv = ["mecab", "-d", dn_mecab, "-u", userdic]
+        cdef Model *new_model = NULL
+        cdef bint result = False
+        with nogil:
+            new_model = createModel(5, argv)
+            result = model.swap(new_model)
+        if not result:
+            del new_model
+            raise RuntimeError("Failed to update dict")
+
     def __dealloc__(self):
         self._clear()
         del self.mecab
