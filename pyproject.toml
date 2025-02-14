@@ -67,6 +67,10 @@ dev = [
 test = ["pytest", "scipy"]
 marine = ["marine>=0.0.5"]
 
+[project.entry-points.pyinstaller40]
+hook-dirs = "pyopenjtalk.__pyinstaller:get_hook_dirs"
+test = "pyopenjtalk.__pyinstaller:get_hook_dirs"
+
 [tool.setuptools.packages.find]
 include = ["pyopenjtalk*"]
 
