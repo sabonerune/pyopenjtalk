@@ -1,6 +1,6 @@
 [build-system]
 requires = [
-    "setuptools>=64",
+    "setuptools>=77.0.0",
     "setuptools_scm>=8",
     "cython>=0.29.16",
     "cmake",
@@ -14,8 +14,9 @@ name = "pyopenjtalk"
 dynamic = ["version"]
 description = "A python wrapper for OpenJTalk"
 readme = "README.md"
-requires-python = ">=3.8"
-license.file = "LICENSE.md"
+requires-python = ">=3.9"
+license = "MIT"
+license-files = ["LICENSE.md"]
 authors = [{ name = "Ryuichi Yamamoto", email = "zryuichi@gmail.com" }]
 keywords = ["OpenJTalk", "Research"]
 classifiers = [
@@ -29,7 +30,6 @@ classifiers = [
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
-    "License :: OSI Approved :: MIT License",
     "Topic :: Scientific/Engineering",
     "Topic :: Software Development",
     "Intended Audience :: Science/Research",
