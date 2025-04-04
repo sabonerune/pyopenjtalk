@@ -53,11 +53,11 @@ dev = [
     "pysen",
     "types-setuptools",
     "mypy<=0.910",
-    "black>=19.19b0,<=20.8",
+    "black>=21.4b0,<=22.10",
     "click<8.1.0",
-    "flake8>=3.7,<4",
+    "flake8>=3.7,<5",
     "flake8-bugbear",
-    "isort>=4.3,<5.2.0",
+    "isort>=5.0.0,<5.2.0",
     "types-decorator",
     "importlib-metadata<5.0",
 ]
@@ -87,6 +87,6 @@ enable_isort = true
 enable_mypy = false # TODO: enable mypy in the future
 mypy_preset = "strict"
 line_length = 88
-py_version = "py38"
+py_version = "py39"
 [[tool.pysen.lint.mypy_targets]]
   paths = ["."]
