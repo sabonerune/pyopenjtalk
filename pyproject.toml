@@ -2,10 +2,9 @@
 requires = [
     "setuptools>=77.0.0",
     "setuptools_scm>=8",
-    "cython>=0.29.16",
+    "cython>=0.29.22",
     "cmake",
-    "numpy>=1.25.0; python_version>='3.9'",
-    "oldest-supported-numpy; python_version<'3.9'",
+    "numpy>=1.25.0",
 ]
 build-backend = "setuptools.build_meta"
 
@@ -27,7 +26,6 @@ classifiers = [
     "Programming Language :: Cython",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Topic :: Scientific/Engineering",
@@ -37,7 +35,6 @@ classifiers = [
 ]
 urls.Homepage = "https://github.com/r9y9/pyopenjtalk"
 dependencies = [
-    "importlib_resources; python_version<'3.9'",
     "numpy>=1.20.0",
     "tqdm",
 ]
@@ -52,7 +49,7 @@ docs = [
     "jupyter",
 ]
 dev = [
-    "cython>=0.29.16",
+    "cython>=0.29.22",
     "pysen",
     "types-setuptools",
     "mypy<=0.910",
