@@ -2,20 +2,15 @@ from __future__ import annotations
 
 import atexit
 import os
-import sys
 import tarfile
 import tempfile
 from collections.abc import Callable, Generator
 from contextlib import ExitStack, contextmanager
+from importlib.resources import as_file, files
 from os.path import exists
 from threading import Lock
 from typing import TypeVar
 from urllib.request import urlopen
-
-if sys.version_info >= (3, 9):
-    from importlib.resources import as_file, files
-else:
-    from importlib_resources import as_file, files
 
 try:
     from .version import __version__  # NOQA
