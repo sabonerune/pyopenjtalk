@@ -3,7 +3,7 @@ import subprocess
 import sys
 from glob import glob
 from itertools import chain
-from os.path import exists, join
+from os.path import dirname, exists, join
 
 import numpy as np
 import setuptools.command.build_ext
@@ -164,4 +164,40 @@ ext_modules += [
     )
 ]
 
-setup(ext_modules=ext_modules, cmdclass={"build_ext": custom_build_ext})
+license_flename = "LICENSE.md"
+classifiers = [
+    "Operating System :: POSIX",
+    "Operating System :: Unix",
+    "Operating System :: MacOS",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Cython",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Topic :: Scientific/Engineering",
+    "Topic :: Software Development",
+    "Intended Audience :: Science/Research",
+    "Intended Audience :: Developers",
+]
+
+if sys.version_info >= (3, 9):
+    license_text = None
+    license_expression = "MIT AND BSD-3-Clause"
+else:
+    package_root = dirname(__file__)
+    license_path = join(package_root, license_flename)
+    with open(license_path, encoding="utf8") as f:
+        license_text = f.read()
+    license_expression = None
+    classifiers.append("License :: OSI Approved :: MIT License")
+
+setup(
+    ext_modules=ext_modules,
+    license=license_text,
+    license_expression=license_expression,
+    license_files=[license_flename],
+    classifiers=classifiers,
+    cmdclass={"build_ext": custom_build_ext},
+)
