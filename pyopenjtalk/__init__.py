@@ -285,3 +285,12 @@ def update_global_jtalk_with_user_dict(path):
                 dn_mecab=OPEN_JTALK_DICT_DIR, userdic=path.encode("utf-8")
             )
         )
+
+
+def unset_user_dict():
+    """Stop applying user dictionary"""
+    global _global_jtalk
+    with _global_jtalk():
+        _global_jtalk = _global_instance_manager(
+            instance=OpenJTalk(dn_mecab=OPEN_JTALK_DICT_DIR)
+        )
