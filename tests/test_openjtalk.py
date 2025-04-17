@@ -89,10 +89,11 @@ def test_g2p_phone():
 
 
 def test_userdic():
-    for text, expected in [
+    parameter = [
         ("nnmn", "n a n a m i N"),
         ("GNU", "g u n u u"),
-    ]:
+    ]
+    for text, expected in parameter:
         p = pyopenjtalk.g2p(text)
         assert p != expected
 
@@ -106,12 +107,15 @@ def test_userdic():
     pyopenjtalk.mecab_dict_index(f.name, user_dic)
     pyopenjtalk.update_global_jtalk_with_user_dict(user_dic)
 
-    for text, expected in [
-        ("nnmn", "n a n a m i N"),
-        ("GNU", "g u n u u"),
-    ]:
+    for text, expected in parameter:
         p = pyopenjtalk.g2p(text)
         assert p == expected
+
+    pyopenjtalk.update_global_jtalk_with_user_dict(None)
+
+    for text, expected in parameter:
+        p = pyopenjtalk.g2p(text)
+        assert p != expected
 
 
 def test_multithreading():

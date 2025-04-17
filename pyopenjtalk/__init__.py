@@ -274,12 +274,15 @@ def update_global_jtalk_with_user_dict(path):
     Note that this will change the global state of the openjtalk module.
 
     Args:
-        path (str): path to user dictionary
+        path (str | None): path to user dictionary.
+          If None, Update global openjtalk instance without the user dictionary.
     """
+    if path is None:
+        path = ""
+    elif not exists(path):
+        raise FileNotFoundError("no such file or directory: %s" % path)
     global _global_jtalk
     with _global_jtalk():
-        if not exists(path):
-            raise FileNotFoundError("no such file or directory: %s" % path)
         _global_jtalk = _global_instance_manager(
             instance=OpenJTalk(
                 dn_mecab=OPEN_JTALK_DICT_DIR, userdic=path.encode("utf-8")
